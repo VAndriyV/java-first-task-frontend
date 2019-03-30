@@ -1,0 +1,23 @@
+.cart-table{
+    margin-top: 25px;
+}
+
+.cart-table button{
+    margin-left: 5px;
+    margin-right: 5px;
+    padding-top:2px;
+    padding-bottom: 5px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+.cart-table > tbody > tr > td,
+.cart-table > tbody > tr > th,
+.cart-table > tfoot > tr > td,
+.cart-table > tfoot > tr > th,
+.cart-table > thead > tr > td
+ {
+    border: none;
+}
+.empty-cart-title{
+    margin-top: 20px;
+}

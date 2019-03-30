@@ -1,0 +1,12 @@
+.add-book-icon {
+    cursor: pointer;
+}
+.card-title{
+    margin-top: 12px;
+}
+.card-body, .card-header{
+    padding: 10px;
+}
+.single-card{
+    margin-top: 20px;
+}

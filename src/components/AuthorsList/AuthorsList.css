@@ -1,0 +1,14 @@
+ul li {
+    list-style:none;
+}
+ul li a{
+    color: inherit;
+}
+ul li a:hover{
+    color: inherit;
+    font-weight: 600;
+    text-decoration: none;
+}
+.list-item{
+    margin-top: 20px;
+}
