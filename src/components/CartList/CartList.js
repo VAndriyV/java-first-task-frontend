@@ -13,17 +13,17 @@ import "./CartList.css";
 
 class CartList extends Component {
   renderRow = (item, idx) => {
-    const { id, title, quantity } = item;
+    const { id, title, count } = item;
     const {
-      onIncreaseQuantity,
-      onDecreaseQuantity,
+      onIncreaseCount,
+      onDecreaseCount,
       onDeleteAllBooks
     } = this.props;
     return (
       <tr key={id}>
         <td>{idx + 1}</td>
         <td>{title}</td>
-        <td>{quantity}</td>
+        <td>{count}</td>
         <td>
           <Button
             size="sm"
@@ -34,14 +34,14 @@ class CartList extends Component {
           </Button>
           <Button
             size="sm"
-            onClick={() => onIncreaseQuantity(id)}
+            onClick={() => onIncreaseCount(id)}
             variant="outline-warning"
           >
             <FaPlusCircle />
           </Button>
           <Button
             size="sm"
-            onClick={() => onDecreaseQuantity(id)}
+            onClick={() => onDecreaseCount(id)}
             variant="outline-danger"
           >
             <FaMinusCircle />
@@ -68,7 +68,7 @@ class CartList extends Component {
           <tr>
             <th>#</th>
             <th>Item</th>
-            <th>Quantity</th>
+            <th>Count</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -88,8 +88,8 @@ const mapStateToProps = ({ cart }) => {
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      onIncreaseQuantity: bookAddedToCart,
-      onDecreaseQuantity: bookRemovedFromCart,
+      onIncreaseCount: bookAddedToCart,
+      onDecreaseCount: bookRemovedFromCart,
       onDeleteAllBooks: allBooksRemovedFromCart,
       fetchCart: fetchCart
     },

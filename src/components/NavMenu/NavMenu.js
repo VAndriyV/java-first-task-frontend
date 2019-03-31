@@ -72,7 +72,7 @@ class NavMenu extends Component {
               {isLoggedIn ?
                 <LinkContainer
                   to={"/logout"}                  
-                  isActive={false}                 
+                  isActive={()=>false}                 
                   exact
                   onClick={logout}
                 >

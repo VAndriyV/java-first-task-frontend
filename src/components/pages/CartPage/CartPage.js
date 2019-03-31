@@ -17,7 +17,7 @@ class CartPage extends Component {
   };
   
   mapToRequestArray=(cartItems)=>{
-    return cartItems.map(item=>({id:item.id,quantity:item.quantity}));
+    return cartItems.map(item=>({id:item.id,count:item.count}));
   };
 
   render() {

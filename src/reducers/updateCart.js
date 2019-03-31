@@ -2,7 +2,7 @@
 
 const updateItemsArray = (cartItems, item, idx) => {
 
-  if (item.quantity === 0) {
+  if (item.count === 0) {
     return [
       ...cartItems.slice(0, idx),
       ...cartItems.slice(idx + 1)
@@ -23,20 +23,20 @@ const updateItemsArray = (cartItems, item, idx) => {
   ];
 };
 
-const updateItem = (item, quantity) => {
+const updateItem = (item, count) => {
 
-  item.quantity += quantity;
+  item.count += count;
   return item;
 }
 
-const updateCartItems = (state, bookId, quantity) => {
+const updateCartItems = (state, bookId, count) => {
 
   const { cart: { cartItems } } = state;
   const book = cartItems.find(({ id }) => bookId === id);
   const index = cartItems.findIndex(({ id }) => book.id === id);
   const item = cartItems[index];
-  if (item.quantity !== 0) {
-    const newItem = updateItem(item, quantity);
+  if (item.count !== 0) {
+    const newItem = updateItem(item, count);
     const newCartItems = updateItemsArray(cartItems, newItem, index);
 
     localStorage.setItem("cart", JSON.stringify(newCartItems));
@@ -70,7 +70,7 @@ const addBookToCartFromList = (state, book) => {
     newCart.push({
       id: book.id,
       title: book.title,
-      quantity: 1
+      count: 1
     });
   }
   else {
@@ -80,14 +80,14 @@ const addBookToCartFromList = (state, book) => {
       newCart.push({
         id: book.id,
         title: book.title,
-        quantity: 1
+        count: 1
       });
 
     }
     else {
 
       let idx = newCart.findIndex((el) => el.id === book.id);
-      newCart[idx].quantity++;
+      newCart[idx].count++;
     }
 
   }
@@ -119,7 +119,7 @@ const updateCart = (state, action) => {
 
     case 'ALL_BOOKS_REMOVED_FROM_CART':
       const item = state.cart.cartItems.find(({ id }) => id === action.payload);
-      return updateCartItems(state, action.payload, -item.quantity);
+      return updateCartItems(state, action.payload, -item.count);
 
     case 'FETCH_CART_NOT_EMPTY':
       return {
