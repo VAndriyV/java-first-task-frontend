@@ -59,6 +59,13 @@ export const fetchCartEmpty = () => {
   };
 };
 
+export const updateCartItemsAvailability = updatedList => {
+  return {
+    type: "UPDATE_AVAILABILITY",
+    payload: updatedList
+  };
+};
+
 const loginSuccess = email => {
   return {
     type: "LOGIN_SUCCESS",
@@ -100,13 +107,19 @@ const userIsGuest = () => {
   };
 };
 
+export const resetMessage = () => {
+  return {
+    type: "RESET_MESSAGE"
+  };
+};
+
 const doLogout = () => {
   return {
     type: "LOGOUT"
   };
 };
 
-const fetchBooks = bookService => (limit, offset) => dispatch => {  
+const fetchBooks = bookService => (limit, offset) => dispatch => {
   bookService
     .getBooksRange(limit, offset)
     .then(data => dispatch(booksLoaded(data)))
@@ -124,7 +137,7 @@ const fetchBooksByAuthorId = bookService => (
   limit,
   offset,
   authorId
-) => dispatch => {  
+) => dispatch => {
   bookService
     .getBooksByAuthorId(authorId, limit, offset)
     .then(data => dispatch(booksLoaded(data)))
@@ -148,7 +161,7 @@ const registration = bookService => userRegistrationData => dispatch => {
     .catch(err => dispatch(registrationFailure(err)));
 };
 
-const logout =  () => dispatch => { 
+const logout = () => dispatch => {
   dispatch(doLogout());
 };
 
@@ -194,13 +207,24 @@ const fetchAuthors = bookService => () => dispatch => {
 };
 
 const fetchCart = () => dispatch => {
-  let cart = localStorage.getItem("cart");
+  const cart = localStorage.getItem("cart");
 
-  if (cart === undefined ||cart===null ||cart.length === 0) {
+  if (cart === undefined || cart === null || cart.length === 0) {
     dispatch(fetchCartEmpty());
   } else {
     dispatch(fetchCartNotEmpty(JSON.parse(cart)));
   }
+};
+
+const updateAvailability = bookService => () => dispatch => {
+  const cart = JSON.parse(localStorage.getItem("cart"));
+
+  const arrayToSend = cart.map(item => item.id);
+
+  bookService.getAvailability(arrayToSend).then(items => {
+    console.log(items);
+    dispatch(updateCartItemsAvailability(items));
+  });
 };
 
 export {
@@ -212,5 +236,6 @@ export {
   login,
   registration,
   logout,
-  checkUserStatus
+  checkUserStatus,
+  updateAvailability
 };

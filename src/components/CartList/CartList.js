@@ -13,16 +13,13 @@ import "./CartList.css";
 
 class CartList extends Component {
   renderRow = (item, idx) => {
-    const { id, title, count } = item;
-    const {
-      onIncreaseCount,
-      onDecreaseCount,
-      onDeleteAllBooks
-    } = this.props;
+    const { id, title, count, availableCount } = item;
+    const { onIncreaseCount, onDecreaseCount, onDeleteAllBooks } = this.props;
     return (
       <tr key={id}>
         <td>{idx + 1}</td>
         <td>{title}</td>
+        <td>{availableCount}</td>
         <td>{count}</td>
         <td>
           <Button
@@ -54,20 +51,13 @@ class CartList extends Component {
   render() {
     const { cartItems } = this.props;
 
-    if (
-      cartItems === null ||
-      cartItems === undefined ||
-      cartItems.length === 0
-    ) {
-      return <h4 className="empty-cart-title">The cart is empty!</h4>;
-    }
-
     return (
       <Table responsive className="cart-table">
         <thead>
           <tr>
             <th>#</th>
             <th>Item</th>
+            <th>Available</th>
             <th>Count</th>
             <th>Actions</th>
           </tr>

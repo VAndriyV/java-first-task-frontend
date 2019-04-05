@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Form, Button, Col, Row } from 'react-bootstrap';
+import { Form, Button, Col, Row,Alert } from 'react-bootstrap';
 import './RegistrationPage.css';
 import { compose } from '../../utils/';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { registration } from '../../../actions';
+import { registration, resetMessage } from '../../../actions';
 import { withBookService } from '../../hoc/';
 import extractFormData from '../../../helpers/form-data-extract';
 
@@ -13,6 +13,10 @@ class RegistrationPage extends Component {
   state = {
     password: '',
     confirmPassword: ''
+  }
+
+  componentDidMount(){
+    this.props.resetMessage();
   }
 
   handleSubmit = (e) => {
@@ -44,8 +48,12 @@ class RegistrationPage extends Component {
   };
 
   render() {
+
+    const {message}=this.props;
+
     return (
       <Row className="d-flex justify-content-center ">
+      <Col xs={12}>
         <Col sm={10} md={6} lg={5} className="registration-form">
           <Form onSubmit={this.handleSubmit}>
             <Form.Group controlId="formBasicEmail">
@@ -77,19 +85,28 @@ class RegistrationPage extends Component {
             </Button>
           </Form>
         </Col>
+        </Col>
+        {message?
+        <Col sm={10} md={6} lg={5} className="login-status">  
+          <Alert variant="primary">
+            {message}
+          </Alert> 
+        </Col>            
+        :null}
       </Row>
     );
   }
 }
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ userStatus }) => {
   return {
-    state
+    message:userStatus.message
   }
 };
 
 const mapDispatchToProps = (dispatch, { bookService }) => {
   return bindActionCreators({
-    registration: registration(bookService)
+    registration: registration(bookService),
+    resetMessage: resetMessage
   }, dispatch);
 };
 

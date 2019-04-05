@@ -16,7 +16,7 @@ export default class FetchApiService{
         });        
         if (!res.ok) {                        
             
-           var errorMsg = await res.text();
+           var errorMsg = await res.json();
            
            throw errorMsg;
 
@@ -38,12 +38,13 @@ export default class FetchApiService{
           });         
         if (!res.ok) {                        
             
-           var errorMsg = await res.text();
+           var errorMsg = await res.json();
            
            throw errorMsg;
 
-        }
-        return await res.text();
+        }      
+                
+        return await res.json();
     };
 
     checkUserStatusRequest = async (url) => {
@@ -57,14 +58,11 @@ export default class FetchApiService{
                 "Authorization": authHeader              
               }
         });        
-        if (!res.ok) {                        
-            
-           var errorMsg = await res.text();
-           
-           throw errorMsg;
-
-        }
-        return await res.text();
+        if (!res.ok) {                     
+            throw new Error("Not authorized");  
+        }  
+        
+        return await res.json();
     };
 
 
@@ -83,7 +81,7 @@ export default class FetchApiService{
 
         if (!res.ok) {                        
             
-           var errorMsg = await res.text();
+           var errorMsg = await res.json();
            
            throw errorMsg;
 
@@ -140,7 +138,7 @@ export default class FetchApiService{
         const result = await this.postRequest(path,userRegistrationData);
 
         return result;
-    }
+    };
 
     checkIsLoggedIn = async()=>{
         const path = 'isLoggedIn';
@@ -148,6 +146,22 @@ export default class FetchApiService{
         const result = await this.checkUserStatusRequest(path);
 
         return result;
-    }
+    };
+
+    makeOrder = async(orderData)=>{
+        const path = 'makeOrder';
+
+        const result = await this.postRequest(path,orderData);
+
+        return result;
+    };
+
+    getAvailability=async(cartItems)=>{
+        const path = 'getAvailability';        
+
+        const result = await this.postRequest(path,cartItems);
+
+        return result;
+    };
 
 }

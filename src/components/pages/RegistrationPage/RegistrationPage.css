@@ -1,12 +1,15 @@
 .registration-form{
+    margin: 0 auto;
     margin-top: 50px;
 }
 @media (max-width: 576px) { 
     .registration-form__button{
+        margin: 0 auto;
         margin-top:16px;        
         width: 100%;
     }
     .registration-form{
+        margin: 0 auto;
         margin-top: 20px;
     }
  }

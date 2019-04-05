@@ -42,7 +42,12 @@ const updateUserStatus = (state, action)=>{
             return{
                 isLoggedIn:false,                
                 message:null
-            };           
+            };
+        case 'RESET_MESSAGE':
+            return{
+                isLoggedIn:state.userStatus.isLoggedIn,                
+                message:null
+            } ;          
         default:
             return state.userStatus;
     }

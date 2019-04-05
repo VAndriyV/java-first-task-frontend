@@ -1,5 +1,9 @@
 .login-form{
+    margin: 0 auto;
     margin-top: 50px;    
+}
+.login-status{
+    margin-top: 15px;
 }
 @media (max-width: 576px) { 
     .login-form__button{
@@ -7,12 +11,14 @@
         width: 100%;
     }
     .login-form{
+        margin: 0 auto;
         margin-top: 20px;
     }
  }
  @media (max-width: 768px) { 
    
     .login-form{
+        margin: 0 auto;
         margin-top: 25px;
     }
  }
