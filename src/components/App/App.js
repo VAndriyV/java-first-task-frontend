@@ -15,6 +15,8 @@ import { withBookService } from '../hoc/';
 import { compose } from '../utils/';
 import { checkUserStatus } from '../../actions';
 import CartPage from '../pages/CartPage/CartPage';
+import AuthorsEdit from '../pages/Admin/AuthorsEdit/AuthorsEdit';
+import BooksEdit from '../pages/Admin/BooksEdit/BooksEdit';
 
 class App extends Component {
 
@@ -32,13 +34,15 @@ class App extends Component {
             <Route path="/login" exact component={LoginPage} />
             <Route path="/registration" exact component={RegistrationPage} />
             <Route path="/books/" exact render={(props) => (
-              <BooksPage key={window.location.href} {...props} />)} />
+              <BooksPage location={window.location.pathname} {...props} />)} />
             <Route path="/books/bygenre/:genre" exact render={(props) => (
-              <BooksPage key={window.location.href} genre={props.match.params.genre} {...props} />)} />
+              <BooksPage location={window.location.pathname} genre={props.match.params.genre} {...props} />)} />
             <Route path="/books/byauthor/:authorId" exact render={(props) => (
-              <BooksPage key={window.location.href} authorId={props.match.params.authorId} {...props} />)} />
+              <BooksPage location={window.location.pathname} authorId={props.match.params.authorId} {...props} />)} />
             <Route path="/authors" exact component={AuthorsPage} />
             <Route path="/cart" exact component={CartPage} />
+            <Route path="/admin/authors" exact component={AuthorsEdit} />
+            <Route path="/admin/books" exact component={BooksEdit} />
             <Route component={HomePage} />
           </Switch>
         </Layout>

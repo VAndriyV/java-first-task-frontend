@@ -1,0 +1,37 @@
+
+.forms-placeholder{
+    display: flex;
+    flex-wrap: wrap;
+}
+.authors-table, .add_author-form,.update_author-form{
+    margin-top: 25px;
+}
+@media (min-width: 992px) {
+
+.forms-placeholder{
+    position: relative;    
+}
+.add_author-form,.update_author-form{
+    position: fixed;
+}
+.update_author-form{
+    top:290px;
+}
+}
+
+.authors-table button{
+    margin-left: 5px;
+    margin-right: 5px;
+    padding-top:2px;
+    padding-bottom: 5px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+.authors-table > tbody > tr > td,
+.authors-table > tbody > tr > th,
+.authors-table > tfoot > tr > td,
+.authors-table > tfoot > tr > th,
+.authors-table > thead > tr > td
+ {
+    border: none;
+}

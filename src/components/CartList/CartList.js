@@ -9,7 +9,7 @@ import {
 import { bindActionCreators } from "redux";
 import { FaTrash, FaPlusCircle, FaMinusCircle } from "react-icons/fa";
 import { Table, Button } from "react-bootstrap";
-import "./CartList.css";
+import "./CartList.css"; 
 
 class CartList extends Component {
   renderRow = (item, idx) => {

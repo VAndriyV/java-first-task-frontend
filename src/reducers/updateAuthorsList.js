@@ -6,7 +6,7 @@ const updateAuthorsList = (state, action) => {
         loading: true,
         error: null
       };
-    }
+    }  
   
     switch (action.type) {
       case 'FETCH_AUTHORS_REQUEST':
@@ -28,6 +28,13 @@ const updateAuthorsList = (state, action) => {
           authors: [],
           loading: false,
           error: action.payload
+        };
+      
+      case 'ADD_AUTHOR_ERROR':
+        return{
+          authors: state.authorsList.authors,
+          error:action.payload,
+          loading:false
         };
   
       default:

@@ -119,7 +119,7 @@ const doLogout = () => {
   };
 };
 
-const fetchBooks = bookService => (limit, offset) => dispatch => {
+const fetchBooks = bookService => (limit, offset) => dispatch => {   
   bookService
     .getBooksRange(limit, offset)
     .then(data => dispatch(booksLoaded(data)))
@@ -198,7 +198,7 @@ const authorsError = error => {
   };
 };
 
-const fetchAuthors = bookService => () => dispatch => {
+const fetchAuthors = bookService => () => dispatch => {  
   dispatch(authorsRequested());
   bookService
     .getAuthors()
@@ -227,6 +227,39 @@ const updateAvailability = bookService => () => dispatch => {
   });
 };
 
+const addAuthorError = error=>{
+  return{
+    type: 'ADD_AUTHOR_ERROR',
+    payload: error
+  }
+};
+
+const updateAuthorError = error=>{
+  return{
+    type: 'UPDATE_AUTHOR_ERROR',
+    payload: error
+  }
+};
+
+const addAuthor =  bookService => (author) => dispatch => {
+  bookService.addAuthor(author)
+  .then(()=>fetchAuthors(bookService)()(dispatch))
+  .catch(e=>dispatch(addAuthorError(e)));
+};
+
+const updateAuthor =  bookService => (author) => dispatch => {
+  bookService.updateAuthor(author)
+  .then(()=>fetchAuthors(bookService)()(dispatch))
+  .catch(e=>dispatch(updateAuthorError(e)));
+};
+
+const fetchBooksByTitle = bookService => (limit, offset, title) => dispatch => {  
+  bookService
+    .getBooksByTitle(title, limit, offset)
+    .then(data => dispatch(booksLoaded(data)))
+    .catch(err => dispatch(booksError(err)));
+};
+
 export {
   fetchBooks,
   fetchAuthors,
@@ -237,5 +270,8 @@ export {
   registration,
   logout,
   checkUserStatus,
-  updateAvailability
+  updateAvailability,
+  addAuthor,
+  updateAuthor,
+  fetchBooksByTitle
 };

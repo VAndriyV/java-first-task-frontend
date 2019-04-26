@@ -20,39 +20,75 @@ import "./BooksList.css";
 
 class BooksList extends Component {
   componentDidMount() {
+    console.log("hereMount");
     const { booksRequested } = this.props;
     booksRequested();
     this.fetchCorrectMethod();
   }
 
-  componentWillUnmount(){
-    const { booksRequested } = this.props;
-    booksRequested();
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.location !== prevProps.location ||
+      prevProps.location === undefined
+    ) {
+      const { booksRequested } = this.props;      
+      this.offset = 0;
+      booksRequested();
+      this.fetchCorrectMethod();
+    }
   }
 
-  fetchCorrectMethod = () => {   
-    const {
+  limit = 8;
+  offset = 0;
+
+  fetchCorrectMethod = () => {
+    const{
+      books,
+      hasMore
+    } = this.props;
+
+    const { booksRequested } = this.props;
+
+    if (hasMore && !(books.length > this.limit && this.offset === 0)) {     
+      this.fetchByProps();
+      this.offset += this.limit;
+    } else if (!hasMore) {
+      booksRequested();
+      this.fetchByProps();
+    }
+    else{
+      booksRequested();
+      this.fetchByProps();
+    }
+    
+  };
+
+  fetchByProps(){
+    const{
       fetchBooks,
-      offsetCoef,
       fetchBooksByGenre,
       genre,
       authorId,
-      fetchBooksByAuthorId 
+      fetchBooksByAuthorId     
     } = this.props;
-  
-    if (genre !== undefined) {   
-      fetchBooksByGenre(this.limit, this.limit * (offsetCoef - 1), genre);
-    } else if (authorId !== undefined) {         
-      fetchBooksByAuthorId(this.limit, this.limit * (offsetCoef - 1), authorId);
-    } else {         
-      fetchBooks(this.limit, this.limit * (offsetCoef - 1));
+
+    if (genre !== undefined) {
+      fetchBooksByGenre(this.limit, this.offset, genre);
+    } else if (authorId !== undefined) {
+      fetchBooksByAuthorId(this.limit, this.offset, authorId);
+    } else {
+      fetchBooks(this.limit, this.offset);
     }
-  };
-
-  limit = 8;
-
+  }  
   render() {
-    const { books, loading, error, onAddedToCart, hasMore } = this.props;
+    const {
+      books,
+      loading,
+      error,
+      onAddedToCart,
+      hasMore,
+      location
+    } = this.props;
 
     if (loading) {
       return <Spinner />;
@@ -65,6 +101,7 @@ class BooksList extends Component {
     return (
       <Row>
         <InfiniteScroll
+          key={location}
           className="items-container"
           pageStart={0}
           loadMore={() => {
@@ -92,8 +129,7 @@ const mapStateToProps = ({ booksList }) => {
     books: booksList.books,
     loading: booksList.loading,
     error: booksList.error,
-    hasMore: booksList.hasMore,
-    offsetCoef: booksList.offsetCoef
+    hasMore: booksList.hasMore   
   };
 };
 

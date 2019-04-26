@@ -6,8 +6,8 @@ import './BooksPage.css';
 export default class BooksPage extends Component {
 
     render() {
-        const { genre, authorId } = this.props;
-        
+        const { genre, authorId,location } = this.props;
+        console.log(location);
         return (
             <React.Fragment>
                 <Row>
@@ -16,7 +16,7 @@ export default class BooksPage extends Component {
                         <p>Click <FiPlusSquare size={24} /> to add book to cart</p>
                     </Col>
                 </Row>
-                <BooksList genre={genre} authorId={authorId} />
+                <BooksList location={location.pathname} genre={genre} authorId={authorId} />
             </React.Fragment>
         );
     }

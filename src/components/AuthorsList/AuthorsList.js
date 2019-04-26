@@ -8,6 +8,7 @@ import Spinner from '../Spinner/';
 import './AuthorsList.css';
 import { Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import Error from "../Error/Error";
 
 class AuthorsList extends Component {
 
@@ -77,8 +78,7 @@ class AuthorsList extends Component {
     }
 
     if (error) {
-      console.log("error");
-      return null;
+      return <Error errorMsg={error} />;
     }
 
     this.sortByFirstName(authors);

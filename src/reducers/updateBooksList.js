@@ -1,37 +1,34 @@
-
-
 const updateBooksList = (state, action) => {
 
 
   if (state === undefined) {
     return {
-      hasMore: false,
+      hasMore: true,
       books: [],
       loading: true,
-      errorMsg: null,
-      offsetCoef: 1
+      errorMsg: null     
     };
   }
 
   switch (action.type) {
     
     case 'FETCH_BOOKS_REQUEST':
-    console.log(state.booksList.offsetCoef);      
+   
       return {
         hasMore: false,
         books: [],
         loading: true,
-        errorMsg: null,
-        offsetCoef: 1
+        errorMsg: null       
       };
 
     case 'FETCH_BOOKS_SUCCESS':     
+   
       return {
         hasMore: action.payload.hasMore,
         books: state.booksList.books.concat(action.payload.books),
         loading: false,
-        error: null,
-        offsetCoef: action.payload.hasMore ? state.booksList.offsetCoef + 1 : 1
+        error: null
+       
       };
 
     case 'FETCH_BOOKS_FAILURE':
@@ -39,8 +36,7 @@ const updateBooksList = (state, action) => {
         hasMore: false,
         books: [],
         loading: false,
-        error: action.payload,
-        offsetCoef: 1
+        error: action.payload       
       };
 
     default:

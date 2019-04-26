@@ -1,167 +1,210 @@
+export default class FetchApiService {
+  _apiBase = "http://127.0.0.1:8888/api/";
 
-export default class FetchApiService{
+  getRequest = async url => {
+    const authHeader = localStorage.getItem("token")
+      ? "Bearer " + localStorage.getItem("token")
+      : "";
+    const res = await fetch(`${this._apiBase}${url}`, {
+      method: "GET",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: authHeader
+      }
+    });
+    if (!res.ok) {
+      var errorMsg = await res.json();
 
-    _apiBase = "http://127.0.0.1:8888/api/";
+      throw errorMsg;
+    }
+    return await res.json();
+  };
 
-    getRequest = async (url) => {
-        const authHeader =localStorage.getItem("token")? "Bearer "+localStorage.getItem("token") :""; 
-        const res = await fetch(`${this._apiBase}${url}`,{
-            method: 'GET',
-            credentials: 'same-origin',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                "Authorization": authHeader              
-              }
-        });        
-        if (!res.ok) {                        
-            
-           var errorMsg = await res.json();
-           
-           throw errorMsg;
+  postRequest = async (url, body) => {
+    const authHeader = localStorage.getItem("token")
+      ? "Bearer " + localStorage.getItem("token")
+      : "";
+    const res = await fetch(`${this._apiBase}${url}`, {
+      method: "POST",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: authHeader
+      },
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) {
+      var errorMsg = await res.json();
 
-        }
-        return await res.json();
-    };
-
-    postRequest = async(url,body)=>{
-        const authHeader =localStorage.getItem("token")? "Bearer "+localStorage.getItem("token") :""; 
-        const res = await fetch(`${this._apiBase}${url}`,{
-            method: 'POST',
-            credentials: 'same-origin',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              "Authorization": authHeader   
-            },
-            body: JSON.stringify(body)
-          });         
-        if (!res.ok) {                        
-            
-           var errorMsg = await res.json();
-           
-           throw errorMsg;
-
-        }      
-                
-        return await res.json();
-    };
-
-    checkUserStatusRequest = async (url) => {
-        const authHeader =localStorage.getItem("token")? "Bearer "+localStorage.getItem("token") :""; 
-        const res = await fetch(`${this._apiBase}${url}`,{
-            method: 'GET',
-            credentials: 'same-origin',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                "Authorization": authHeader              
-              }
-        });        
-        if (!res.ok) {                     
-            throw new Error("Not authorized");  
-        }  
-        
-        return await res.json();
-    };
-
-
-    loginRequest = async(url,body)=>{
-        const authHeader =localStorage.getItem("token")? "Bearer "+localStorage.getItem("token") :""; 
-        const res = await fetch(`${this._apiBase}${url}`,{
-            method: 'POST',
-            credentials: 'same-origin',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              "Authorization": authHeader 
-            },
-            body: JSON.stringify(body)
-          });  
-
-        if (!res.ok) {                        
-            
-           var errorMsg = await res.json();
-           
-           throw errorMsg;
-
-        }      
-               
-        return res.headers.get("authorization")
+      throw errorMsg;
     }
 
+    return await res.json();
+  };
 
-    getBooksRange = async (limit,offset) => {
-       
-        const path = `booksRange?limit=${limit}&offset=${offset}`;
+  putRequest = async (url, body) => {
+    const authHeader = localStorage.getItem("token")
+      ? "Bearer " + localStorage.getItem("token")
+      : "";
+    const res = await fetch(`${this._apiBase}${url}`, {
+      method: "PUT",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: authHeader
+      },
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) {
+      var errorMsg = await res.json();
 
-        const result = await this.getRequest(path);
-        
-        return result;
-    };
+      throw errorMsg;
+    }
 
-    getAuthors = async()=>{
-        const path = 'authors';
+    return await res.json();
+  };
 
-        const result = await this.getRequest(path);
-        
-        return result;
-    };
+  checkUserStatusRequest = async url => {
+    const authHeader = localStorage.getItem("token")
+      ? "Bearer " + localStorage.getItem("token")
+      : "";
+    const res = await fetch(`${this._apiBase}${url}`, {
+      method: "GET",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: authHeader
+      }
+    });
+    if (!res.ok) {
+      throw new Error("Not authorized");
+    }
 
-    getBooksByGenre = async(genre,limit,offset)=>{
-        const path = `booksByGenre?genre=${genre}&limit=${limit}&offset=${offset}`;
+    return await res.json();
+  };
 
-        const result = await this.getRequest(path);
+  loginRequest = async (url, body) => {
+    const authHeader = localStorage.getItem("token")
+      ? "Bearer " + localStorage.getItem("token")
+      : "";
+    const res = await fetch(`${this._apiBase}${url}`, {
+      method: "POST",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: authHeader
+      },
+      body: JSON.stringify(body)
+    });
 
-        return result;      
-    };
+    if (!res.ok) {
+      var errorMsg = await res.json();
 
-    getBooksByAuthorId = async(authorId,limit,offset)=>{      
-        const path = `booksByAuthor?authorId=${authorId}&limit=${limit}&offset=${offset}`;
+      throw errorMsg;
+    }
 
-        const result = await this.getRequest(path);
+    return res.headers.get("authorization");
+  };
 
-        return result;      
-    };
+  getBooksRange = async (limit, offset) => {
+    const path = `booksRange?limit=${limit}&offset=${offset}`;
 
-    login = async(userLoginData)=>{
-        const path = 'login';
+    const result = await this.getRequest(path);
 
-        const result = await this.loginRequest(path,userLoginData);
+    return result;
+  };
 
-        return result;
-    };
+  getAuthors = async () => {
+    const path = "authors";
 
-    registration = async(userRegistrationData)=>{
-        const path = 'registration';
+    const result = await this.getRequest(path);
 
-        const result = await this.postRequest(path,userRegistrationData);
+    return result;
+  };
 
-        return result;
-    };
+  getBooksByGenre = async (genre, limit, offset) => {
+    const path = `booksByGenre?genre=${genre}&limit=${limit}&offset=${offset}`;
 
-    checkIsLoggedIn = async()=>{
-        const path = 'isLoggedIn';
+    const result = await this.getRequest(path);
 
-        const result = await this.checkUserStatusRequest(path);
+    return result;
+  };
 
-        return result;
-    };
+  getBooksByAuthorId = async (authorId, limit, offset) => {
+    const path = `booksByAuthor?authorId=${authorId}&limit=${limit}&offset=${offset}`;
 
-    makeOrder = async(orderData)=>{
-        const path = 'makeOrder';
+    const result = await this.getRequest(path);
 
-        const result = await this.postRequest(path,orderData);
+    return result;
+  };
 
-        return result;
-    };
+  getBooksByTitle = async (title,limit,offset)=>{
+    const path = `booksByTitle?title=${title}&limit=${limit}&offset=${offset}`;
 
-    getAvailability=async(cartItems)=>{
-        const path = 'getAvailability';        
+    const result = await this.getRequest(path);
 
-        const result = await this.postRequest(path,cartItems);
+    return result;
+  };
 
-        return result;
-    };
+  login = async userLoginData => {
+    const path = "login";
 
+    const result = await this.loginRequest(path, userLoginData);
+
+    return result;
+  };
+
+  registration = async userRegistrationData => {
+    const path = "registration";
+
+    const result = await this.postRequest(path, userRegistrationData);
+
+    return result;
+  };
+
+  checkIsLoggedIn = async () => {
+    const path = "isLoggedIn";
+
+    const result = await this.checkUserStatusRequest(path);
+
+    return result;
+  };
+
+  makeOrder = async orderData => {
+    const path = "makeOrder";
+
+    const result = await this.postRequest(path, orderData);
+
+    return result;
+  };
+
+  getAvailability = async cartItems => {
+    const path = "getAvailability";
+
+    const result = await this.postRequest(path, cartItems);
+
+    return result;
+  };
+
+  addAuthor = async author => {
+    const path = "addAuthor";
+
+    const result = await this.postRequest(path, author);
+
+    return result;
+  };
+
+  updateAuthor = async author=>{
+    const path = "updateAuthor";
+
+    const result = await this.putRequest(path,author);
+    
+    return result;
+  };
 }
