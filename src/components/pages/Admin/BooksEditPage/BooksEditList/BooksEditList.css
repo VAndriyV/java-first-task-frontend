@@ -1,0 +1,32 @@
+.items-container{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.books-table{
+    margin-top: 20px;
+}
+.books-table button{
+    margin-left: 5px;
+    margin-right: 5px;
+    padding-top:2px;
+    padding-bottom: 5px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+.books-table > tbody > tr > td,
+.books-table > tbody > tr > th,
+.books-table > tfoot > tr > td,
+.books-table > tfoot > tr > th,
+.books-table > thead > tr > td
+ {
+    border: none;
+}
+.search-placeholder input[type=text]{
+    margin-top: 25px;
+}
+.search-placeholder button{
+    margin-top: 15px;
+    margin-right: 20px;
+    
+}

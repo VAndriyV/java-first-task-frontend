@@ -1,0 +1,15 @@
+.forms-placeholder{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+.toggle-button{
+    margin-left: 15px;
+    margin-top: 20px;
+}
+@media (min-width: 992px) {
+    .forms-placeholder{
+        justify-content: left;
+    }
+}

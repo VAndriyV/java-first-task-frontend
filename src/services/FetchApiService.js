@@ -207,4 +207,20 @@ export default class FetchApiService {
     
     return result;
   };
+
+  addBook = async book => {
+    const path = "addBook";
+
+    const result = await this.postRequest(path, book);
+
+    return result;
+  };
+
+  updateBook = async book=>{
+    const path = "updateBook";
+
+    const result = await this.putRequest(path,book);
+    
+    return result;
+  };
 }

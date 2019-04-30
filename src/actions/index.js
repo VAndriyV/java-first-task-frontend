@@ -227,30 +227,51 @@ const updateAvailability = bookService => () => dispatch => {
   });
 };
 
-const addAuthorError = error=>{
+const addItemError = error=>{
   return{
-    type: 'ADD_AUTHOR_ERROR',
+    type: 'ADD_ITEM_ERROR',
     payload: error
   }
 };
 
-const updateAuthorError = error=>{
+const updateItemError = error=>{
   return{
-    type: 'UPDATE_AUTHOR_ERROR',
+    type: 'UPDATE_ITEM_ERROR',
     payload: error
   }
 };
+
+const operationSuccess=() =>{
+  return{
+    type: 'OPERATION_SUCCESS'    
+  }
+};
+
+
 
 const addAuthor =  bookService => (author) => dispatch => {
   bookService.addAuthor(author)
-  .then(()=>fetchAuthors(bookService)()(dispatch))
-  .catch(e=>dispatch(addAuthorError(e)));
+  .then(()=>{dispatch(operationSuccess()); fetchAuthors(bookService)()(dispatch);})
+  .catch(e=>dispatch(addItemError(e)));
 };
 
 const updateAuthor =  bookService => (author) => dispatch => {
   bookService.updateAuthor(author)
-  .then(()=>fetchAuthors(bookService)()(dispatch))
-  .catch(e=>dispatch(updateAuthorError(e)));
+  .then(()=>{dispatch(operationSuccess()); fetchAuthors(bookService)()(dispatch);})
+  .catch(e=>dispatch(updateItemError(e)));
+};
+
+const addBook =  bookService => (book) => dispatch => {
+  bookService.addBook(book)
+  .then(()=>dispatch(operationSuccess()))  
+  .catch(e=>dispatch(addItemError(e)));
+};
+
+const updateBook =  bookService => (book) => dispatch => {
+  
+  bookService.updateBook(book)
+  .then(()=>dispatch(operationSuccess()))  
+  .catch(e=>dispatch(updateItemError(e)));
 };
 
 const fetchBooksByTitle = bookService => (limit, offset, title) => dispatch => {  
@@ -273,5 +294,7 @@ export {
   updateAvailability,
   addAuthor,
   updateAuthor,
-  fetchBooksByTitle
+  fetchBooksByTitle,
+  addBook,
+  updateBook
 };

@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withBookService } from '../../../hoc/';
-import { compose } from '../../../utils/';
-import { fetchAuthors, addAuthor, updateAuthor } from '../../../../actions/';
+import { withBookService } from '../../../hoc';
+import { compose } from '../../../utils';
+import { fetchAuthors, addAuthor, updateAuthor } from '../../../../actions';
 import { bindActionCreators } from 'redux';
-import Spinner from '../../../Spinner/';
+import Spinner from '../../../Spinner';
 import Error from '../../../Error/Error';
 import { FaPen } from "react-icons/fa";
 import { Form, Row, Table, Button, Col } from "react-bootstrap";
-import './AuthorsEdit.css';
+import './AuthorsEditPage.css';
 import extractFormData from '../../../../helpers/form-data-extract';
- class AuthorsEdit extends Component{
+ class AuthorsEditPage extends Component{
 
     state ={
       editMode:false,
@@ -39,7 +39,7 @@ import extractFormData from '../../../../helpers/form-data-extract';
 
     addAuthor=(e)=>{
         e.preventDefault();   
-        let newAuthor = extractFormData(e.target); 
+        const newAuthor = extractFormData(e.target); 
         this.props.addAuthor(newAuthor);             
     };
 
@@ -79,11 +79,8 @@ import extractFormData from '../../../../helpers/form-data-extract';
 
     render(){
 
-        const { authors, loading, error } = this.props;
-        const {editMode,editObject}=this.state;
-        if (loading) {
-          return <Spinner />
-        }
+        const { authors, loading, error,operationError,operationErrorType } = this.props;
+        const {editMode,editObject}=this.state;      
     
         if (error) {
           return <Error errorMsg={error} />;
@@ -95,6 +92,9 @@ import extractFormData from '../../../../helpers/form-data-extract';
             <AddAuthorForm onSubmit={this.addAuthor}/>
             {editMode?<UpdateAuthorForm onSubmit={this.updateAuthor} author={editObject}/>:null}            
             </Col>
+            {operationError?<Error errorMsg={operationError} />:null}
+            {loading?<Spinner/>: 
+            error?  <Error errorMsg={error} />:         
             <Col xs={12} lg={9}>
             <Table responsive className="authors-table">
             <thead>
@@ -109,6 +109,7 @@ import extractFormData from '../../../../helpers/form-data-extract';
             <tbody>{this.mapAuthorsList(authors)}</tbody>
           </Table>
           </Col>
+            }
           </Row>);
     }
 
@@ -157,11 +158,13 @@ const UpdateAuthorForm=({onSubmit, author})=>{
   );
 }
 
-const mapStateToProps = ({ authorsList }) => {
+const mapStateToProps = ({ authorsList,adminOperations }) => {
     return {
       authors: authorsList.authors,
       loading: authorsList.loading,
-      error: authorsList.error
+      error: authorsList.error,
+      operationError: adminOperations.error,
+      operationErrorType:adminOperations.operationType
     }
   };
   
@@ -176,4 +179,4 @@ const mapStateToProps = ({ authorsList }) => {
   export default compose(
     withBookService(),
     connect(mapStateToProps, mapDispatchToProps)
-  )(AuthorsEdit);
+  )(AuthorsEditPage);

@@ -15,8 +15,8 @@ import { withBookService } from '../hoc/';
 import { compose } from '../utils/';
 import { checkUserStatus } from '../../actions';
 import CartPage from '../pages/CartPage/CartPage';
-import AuthorsEdit from '../pages/Admin/AuthorsEdit/AuthorsEdit';
-import BooksEdit from '../pages/Admin/BooksEdit/BooksEdit';
+import AuthorsEditPage from '../pages/Admin/AuthorsEditPage/AuthorsEditPage';
+import BooksEditPage from '../pages/Admin/BooksEditPage/BooksEditPage';
 
 class App extends Component {
 
@@ -41,8 +41,8 @@ class App extends Component {
               <BooksPage location={window.location.pathname} authorId={props.match.params.authorId} {...props} />)} />
             <Route path="/authors" exact component={AuthorsPage} />
             <Route path="/cart" exact component={CartPage} />
-            <Route path="/admin/authors" exact component={AuthorsEdit} />
-            <Route path="/admin/books" exact component={BooksEdit} />
+            <Route path="/admin/authors" exact component={AuthorsEditPage} />
+            <Route path="/admin/books" exact component={BooksEditPage} />
             <Route component={HomePage} />
           </Switch>
         </Layout>

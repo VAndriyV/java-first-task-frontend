@@ -28,14 +28,8 @@ const updateAuthorsList = (state, action) => {
           authors: [],
           loading: false,
           error: action.payload
-        };
+        };    
       
-      case 'ADD_AUTHOR_ERROR':
-        return{
-          authors: state.authorsList.authors,
-          error:action.payload,
-          loading:false
-        };
   
       default:
         return state.authorsList;
