@@ -1,6 +1,5 @@
 const updateBooksList = (state, action) => {
-
-
+  
   if (state === undefined) {
     return {
       hasMore: true,

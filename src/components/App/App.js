@@ -17,6 +17,7 @@ import { checkUserStatus } from '../../actions';
 import CartPage from '../pages/CartPage/CartPage';
 import AuthorsEditPage from '../pages/Admin/AuthorsEditPage/AuthorsEditPage';
 import BooksEditPage from '../pages/Admin/BooksEditPage/BooksEditPage';
+import UserBooksEditPage from '../pages/Admin/UserBooksEditPage/UserBooksEditPage';
 
 class App extends Component {
 
@@ -43,6 +44,7 @@ class App extends Component {
             <Route path="/cart" exact component={CartPage} />
             <Route path="/admin/authors" exact component={AuthorsEditPage} />
             <Route path="/admin/books" exact component={BooksEditPage} />
+            <Route path="/admin/userBooks" exact component={UserBooksEditPage} />
             <Route component={HomePage} />
           </Switch>
         </Layout>
@@ -51,9 +53,10 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({userStatus}) => {
   return {
-    isLoggedIn: state.userStatus.isLoggedIn
+    isLoggedIn: userStatus.isLoggedIn,
+    roleId:userStatus.roleId
   }
 };
 

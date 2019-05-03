@@ -31,8 +31,7 @@ class BooksEditList extends Component {
   onInputChange = (e) => {
     this.setState({
       searchQuery: e.target.value
-    });
-    console.log(this.state.searchQuery);
+    });   
   };
 
   limit = 8;

@@ -4,6 +4,7 @@ import updateAuthorsList from './updateAuthorsList';
 import updateCart from './updateCart';
 import updateUserStatus from './updateUserStatus';
 import adminOperations from './adminOperations';
+import updateUserBooks from './updateUserBooks';
 
 const reducer = (state, action) => {
    return {
@@ -11,7 +12,8 @@ const reducer = (state, action) => {
      authorsList: updateAuthorsList(state, action),
      cart: updateCart(state,action),
      userStatus: updateUserStatus(state,action),
-     adminOperations: adminOperations(state,action)
+     adminOperations: adminOperations(state,action),
+     userBooks: updateUserBooks(state,action)
    };
  };
 

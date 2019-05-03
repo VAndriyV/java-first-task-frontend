@@ -1,5 +1,5 @@
 const adminOperations = (state, action) => {
-    if (state == undefined) {
+    if (state === undefined) {
         return {
             error: null,
             operationType: ''

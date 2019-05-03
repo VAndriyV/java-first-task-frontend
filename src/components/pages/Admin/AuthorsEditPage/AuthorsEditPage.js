@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withBookService } from '../../../hoc';
 import { compose } from '../../../utils';
-import { fetchAuthors, addAuthor, updateAuthor } from '../../../../actions';
+import { fetchAuthors, addAuthor, updateAuthor} from '../../../../actions';
 import { bindActionCreators } from 'redux';
 import Spinner from '../../../Spinner';
 import Error from '../../../Error/Error';
@@ -10,6 +10,8 @@ import { FaPen } from "react-icons/fa";
 import { Form, Row, Table, Button, Col } from "react-bootstrap";
 import './AuthorsEditPage.css';
 import extractFormData from '../../../../helpers/form-data-extract';
+import { Redirect } from 'react-router';
+
  class AuthorsEditPage extends Component{
 
     state ={
@@ -17,8 +19,8 @@ import extractFormData from '../../../../helpers/form-data-extract';
       editObject: null
     }
    
-    componentDidMount() {
-        this.props.fetchAuthors();
+    componentDidMount() {      
+        this.props.fetchAuthors();       
     }
 
     sortByFirstName(authors) {
@@ -78,9 +80,12 @@ import extractFormData from '../../../../helpers/form-data-extract';
     }
 
     render(){
-
-        const { authors, loading, error,operationError,operationErrorType } = this.props;
-        const {editMode,editObject}=this.state;      
+        const { authors, loading, error,operationError,operationErrorType,roleId } = this.props;
+        const {editMode,editObject}=this.state; 
+       
+        if(roleId!==2){
+          return <Redirect to="/" />;
+        }
     
         if (error) {
           return <Error errorMsg={error} />;
@@ -158,13 +163,14 @@ const UpdateAuthorForm=({onSubmit, author})=>{
   );
 }
 
-const mapStateToProps = ({ authorsList,adminOperations }) => {
+const mapStateToProps = ({ authorsList,adminOperations,userStatus }) => {
     return {
       authors: authorsList.authors,
       loading: authorsList.loading,
       error: authorsList.error,
       operationError: adminOperations.error,
-      operationErrorType:adminOperations.operationType
+      operationErrorType:adminOperations.operationType,
+      roleId:userStatus.roleId
     }
   };
   
@@ -172,7 +178,7 @@ const mapStateToProps = ({ authorsList,adminOperations }) => {
     return bindActionCreators({
       fetchAuthors: fetchAuthors(bookService),
       addAuthor: addAuthor(bookService),
-      updateAuthor: updateAuthor(bookService)
+      updateAuthor: updateAuthor(bookService)     
     }, dispatch);
   };
   

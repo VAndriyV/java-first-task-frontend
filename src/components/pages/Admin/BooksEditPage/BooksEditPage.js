@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Row, Table, Button, Col, Form } from "react-bootstrap";
+import { Row,Button, Col, Form } from "react-bootstrap";
 import { withBookService } from "../../../hoc/";
 import { bindActionCreators } from "redux";
 import Error from "../../../Error/Error";
@@ -9,6 +9,7 @@ import BooksEditList from "./BooksEditList/BooksEditList";
 import { fetchBooks, addBook, updateBook } from "../../../../actions";
 import extractFormData from '../../../../helpers/form-data-extract';
 import "./BooksEditPage.css";
+import { Redirect } from 'react-router';
 class BooksEditPage extends Component {
     state = {
         editMode: false,
@@ -52,7 +53,11 @@ class BooksEditPage extends Component {
 
     render() {
         const {editMode,editObject,showForms}=this.state;
-        const {operationError,operationErrorType} = this.props;
+        const {operationError,operationErrorType,roleId} = this.props;
+
+        if(roleId!==2){
+            return <Redirect to="/" />;
+        }
 
         return (<React.Fragment>
             <Row>
@@ -74,11 +79,12 @@ class BooksEditPage extends Component {
     }
 }
 
-const mapStateToProps = ({ booksList,adminOperations }) => {
+const mapStateToProps = ({ booksList,adminOperations,userStatus }) => {
     return {
         error: booksList.error,
         operationError: adminOperations.error,
-        operationErrorType:adminOperations.operationType
+        operationErrorType:adminOperations.operationType,
+        roleId:userStatus.roleId
     };
 };
 

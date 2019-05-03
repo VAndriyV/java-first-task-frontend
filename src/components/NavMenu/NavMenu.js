@@ -4,7 +4,7 @@ import { FaUser, FaUserEdit, FaBook, FaShoppingCart, FaSignOutAlt } from "react-
 import { LinkContainer } from "react-router-bootstrap";
 import "./NavMenu.css";
 import { connect } from 'react-redux';
-import { logout} from '../../actions';
+import { logout } from '../../actions';
 import { bindActionCreators } from 'redux';
 
 class NavMenu extends Component {
@@ -18,12 +18,43 @@ class NavMenu extends Component {
   };
 
   render() {
-    const {isLoggedIn,logout}=this.props;
-   
+    const { isLoggedIn, logout, roleId } = this.props;
+    
+    const adminNav = roleId === 2 ? (<NavDropdown title="Admin panel" id="admin-nav-dropdown">
+      <LinkContainer
+        to={"/admin/books"}
+        isActive={this.checkActive("/admin/books")}
+        exact
+      >
+        <NavDropdown.Item>
+          Books edit
+        </NavDropdown.Item>
+      </LinkContainer>
+      <LinkContainer
+        to={"/admin/authors"}
+        isActive={this.checkActive("/admin/authors")}
+        exact
+      >
+        <NavDropdown.Item>
+          Authors edit
+        </NavDropdown.Item>
+      </LinkContainer>
+      <LinkContainer
+        to={"/admin/userbooks"}
+        isActive={this.checkActive("/admin/userbooks")}
+        exact
+      >
+        <NavDropdown.Item>
+          User books edit
+        </NavDropdown.Item>
+      </LinkContainer>
+
+    </NavDropdown>) : null;
+
     return (
       <Navbar variant="dark" bg="dark" sticky="top" expand="lg">
         <Container>
-          <Navbar.Brand href="home">
+          <Navbar.Brand href="/home">
             <FaBook size={20} style={{ marginBottom: 5, marginRight: 10 }} />
             City Library
           </Navbar.Brand>
@@ -71,8 +102,8 @@ class NavMenu extends Component {
               </LinkContainer>
               {isLoggedIn ?
                 <LinkContainer
-                  to={"/logout"}                  
-                  isActive={()=>false}                 
+                  to={"/logout"}
+                  isActive={() => false}
                   exact
                   onClick={logout}
                 >
@@ -102,6 +133,7 @@ class NavMenu extends Component {
                   Registration
                 </Nav.Link>
               </LinkContainer>
+              {adminNav}
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -110,16 +142,17 @@ class NavMenu extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch)=>{
-    return bindActionCreators({
-      logout: logout
-    },dispatch);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    logout: logout
+  }, dispatch);
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ userStatus }) => {
   return {
-    isLoggedIn: state.userStatus.isLoggedIn
+    isLoggedIn: userStatus.isLoggedIn,
+    roleId: userStatus.roleId
   }
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(NavMenu);
+export default connect(mapStateToProps, mapDispatchToProps)(NavMenu);

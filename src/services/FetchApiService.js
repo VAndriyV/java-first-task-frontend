@@ -2,17 +2,22 @@ export default class FetchApiService {
   _apiBase = "http://127.0.0.1:8888/api/";
 
   getRequest = async url => {
+
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    headers.append('Accept','application/json');
+
     const authHeader = localStorage.getItem("token")
       ? "Bearer " + localStorage.getItem("token")
       : "";
+
+    if(authHeader!==""){
+      headers.append('Authorization',authHeader);
+    }
     const res = await fetch(`${this._apiBase}${url}`, {
       method: "GET",
       credentials: "same-origin",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: authHeader
-      }
+      headers: headers
     });
     if (!res.ok) {
       var errorMsg = await res.json();
@@ -23,17 +28,21 @@ export default class FetchApiService {
   };
 
   postRequest = async (url, body) => {
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    headers.append('Accept','application/json');
+    
     const authHeader = localStorage.getItem("token")
       ? "Bearer " + localStorage.getItem("token")
       : "";
+
+    if(authHeader!==""){
+      headers.append('Authorization',authHeader);
+    }
     const res = await fetch(`${this._apiBase}${url}`, {
       method: "POST",
       credentials: "same-origin",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: authHeader
-      },
+      headers: headers        ,
       body: JSON.stringify(body)
     });
     if (!res.ok) {
@@ -46,17 +55,21 @@ export default class FetchApiService {
   };
 
   putRequest = async (url, body) => {
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    headers.append('Accept','application/json');
+    
     const authHeader = localStorage.getItem("token")
       ? "Bearer " + localStorage.getItem("token")
       : "";
+
+    if(authHeader!==""){
+      headers.append('Authorization',authHeader);
+    }
     const res = await fetch(`${this._apiBase}${url}`, {
       method: "PUT",
       credentials: "same-origin",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: authHeader
-      },
+      headers: headers,
       body: JSON.stringify(body)
     });
     if (!res.ok) {
@@ -69,17 +82,21 @@ export default class FetchApiService {
   };
 
   checkUserStatusRequest = async url => {
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    headers.append('Accept','application/json');
+    
     const authHeader = localStorage.getItem("token")
       ? "Bearer " + localStorage.getItem("token")
       : "";
+
+    if(authHeader!==""){
+      headers.append('Authorization',authHeader);
+    }
     const res = await fetch(`${this._apiBase}${url}`, {
       method: "GET",
       credentials: "same-origin",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: authHeader
-      }
+      headers:headers
     });
     if (!res.ok) {
       throw new Error("Not authorized");
@@ -89,17 +106,23 @@ export default class FetchApiService {
   };
 
   loginRequest = async (url, body) => {
+
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    headers.append('Accept','application/json');
+    
     const authHeader = localStorage.getItem("token")
       ? "Bearer " + localStorage.getItem("token")
       : "";
+
+    if(authHeader!==""){
+      headers.append('Authorization',authHeader);
+    }
+
     const res = await fetch(`${this._apiBase}${url}`, {
       method: "POST",
       credentials: "same-origin",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: authHeader
-      },
+      headers: headers,
       body: JSON.stringify(body)
     });
 
@@ -221,6 +244,14 @@ export default class FetchApiService {
 
     const result = await this.putRequest(path,book);
     
+    return result;
+  };
+
+  getUserBooksByEmail = async email=>{
+    const path = `userBooks?email=${email}`;
+
+    const result = await this.getRequest(path);
+
     return result;
   };
 }

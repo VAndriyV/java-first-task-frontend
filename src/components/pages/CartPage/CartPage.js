@@ -8,6 +8,7 @@ import { Col, Button, Alert } from "react-bootstrap";
 import { fetchCart, updateAvailability } from "../../../actions";
 import FetchApiService from "../../../services/FetchApiService";
 import "./CartPage.css";
+import Error from '../../Error/Error';
 
 class CartPage extends Component {
   state = {
@@ -33,6 +34,7 @@ class CartPage extends Component {
         });
       })
       .catch(e => {
+        console.log(e);
         this.setState({
           hasError: true,
           errorMsg: e,
@@ -59,6 +61,8 @@ class CartPage extends Component {
       return <h4 className="empty-cart-title">The cart is empty!</h4>;
     }
 
+    console.log(hasError+" "+errorMsg);
+
     return (
       <React.Fragment>
         <div className="update-button-placeholder">
@@ -81,9 +85,7 @@ class CartPage extends Component {
           )}
         </Col>
         <Col sm={10} md={6} lg={5} className="message-placeholder">
-          {hasError ? (
-            <Alert variant="danger">{errorMsg}</Alert>
-          ) : isComplete ? (
+          {hasError ?<Error errorMsg={errorMsg}/> : isComplete ? (
             <Alert variant="success">Success! Your order is complete.</Alert>
           ) : null}
         </Col>

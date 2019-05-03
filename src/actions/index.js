@@ -1,3 +1,5 @@
+import jwt_decode from 'jwt-decode';
+
 export const booksRequested = () => {
   return {
     type: "FETCH_BOOKS_REQUEST"
@@ -148,8 +150,10 @@ const login = bookService => userLoginData => dispatch => {
   bookService
     .login(userLoginData)
     .then(token => {
-      dispatch(loginSuccess(token));
-      console.log(token);
+      localStorage.setItem("token",token);
+      const decoded = jwt_decode(token);
+      const userData = JSON.parse(decoded.sub);     
+      dispatch(loginSuccess(userData));     
     })
     .catch(err => dispatch(loginFailure(err)));
 };
@@ -168,13 +172,11 @@ const logout = () => dispatch => {
 const checkUserStatus = bookService => () => dispatch => {
   bookService
     .checkIsLoggedIn()
-    .then(email => {
-      dispatch(userIsLoggedIn(email));
-      console.log("authorized");
+    .then(userData => {
+      dispatch(userIsLoggedIn(userData));    
     })
     .catch(e => {
-      dispatch(userIsGuest());
-      console.log("NoNauthorized");
+      dispatch(userIsGuest());     
     });
 };
 
@@ -221,8 +223,7 @@ const updateAvailability = bookService => () => dispatch => {
 
   const arrayToSend = cart.map(item => item.id);
 
-  bookService.getAvailability(arrayToSend).then(items => {
-    console.log(items);
+  bookService.getAvailability(arrayToSend).then(items => {    
     dispatch(updateCartItemsAvailability(items));
   });
 };
@@ -246,8 +247,6 @@ const operationSuccess=() =>{
     type: 'OPERATION_SUCCESS'    
   }
 };
-
-
 
 const addAuthor =  bookService => (author) => dispatch => {
   bookService.addAuthor(author)
@@ -281,6 +280,36 @@ const fetchBooksByTitle = bookService => (limit, offset, title) => dispatch => {
     .catch(err => dispatch(booksError(err)));
 };
 
+const userBooksRequested = () => {
+  return {
+    type: "FETCH_USERBOOKS_REQUEST"
+  };
+};
+
+const userBooksLoaded = userBooks => {
+  
+  return {
+    type: "FETCH_USERBOOKS_SUCCESS",
+    payload: userBooks
+  };
+};
+
+const userBooksError = error => {
+  return {
+    type: "FETCH_USERBOOKS_FAILURE",
+    payload: error
+  };
+};
+
+const fetchUserBooks = bookService => (email) => dispatch => {  
+  dispatch(userBooksRequested());
+  bookService
+    .getUserBooksByEmail(email)
+    .then(data => dispatch(userBooksLoaded(data)))
+    .catch(err => dispatch(userBooksError(err)));
+};
+
+
 export {
   fetchBooks,
   fetchAuthors,
@@ -296,5 +325,6 @@ export {
   updateAuthor,
   fetchBooksByTitle,
   addBook,
-  updateBook
+  updateBook,
+  fetchUserBooks
 };
