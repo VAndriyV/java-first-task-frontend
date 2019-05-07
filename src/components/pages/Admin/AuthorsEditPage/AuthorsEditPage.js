@@ -84,7 +84,7 @@ import { Redirect } from 'react-router';
         const {editMode,editObject}=this.state; 
        
         if(roleId!==2){
-          return <Redirect to="/" />;
+          return <Redirect to ="/login"/>;
         }
     
         if (error) {
@@ -139,7 +139,7 @@ const AddAuthorForm=({onSubmit})=>{
       </Form>
       </Col>
     );
-}
+};
 
 const UpdateAuthorForm=({onSubmit, author})=>{
   return (
@@ -161,7 +161,7 @@ const UpdateAuthorForm=({onSubmit, author})=>{
     </Form>
     </Col>
   );
-}
+};
 
 const mapStateToProps = ({ authorsList,adminOperations,userStatus }) => {
     return {

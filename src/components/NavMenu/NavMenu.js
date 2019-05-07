@@ -72,8 +72,8 @@ class NavMenu extends Component {
                 <Nav.Link>All books</Nav.Link>
               </LinkContainer>
               <LinkContainer
-                to={"/authors"}
-                isActive={this.checkActive("/authors")}
+                to={"/authors/"}
+                isActive={this.checkActive("/authors/")}
                 exact
               >
                 <Nav.Link active={false}>Authors</Nav.Link>
@@ -133,6 +133,18 @@ class NavMenu extends Component {
                   Registration
                 </Nav.Link>
               </LinkContainer>
+              {isLoggedIn ?
+                <LinkContainer
+                  to={"/orderedBooks"}
+                  isActive={this.checkActive("/orderedBooks")}
+                  exact                 
+                >
+                  <Nav.Link active={false}>                   
+                    Ordered books
+              </Nav.Link>
+                </LinkContainer>
+                :
+                null}
               {adminNav}
             </Nav>
           </Navbar.Collapse>

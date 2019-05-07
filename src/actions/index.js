@@ -309,6 +309,12 @@ const fetchUserBooks = bookService => (email) => dispatch => {
     .catch(err => dispatch(userBooksError(err)));
 };
 
+const updateUserBook =  bookService => (userBook,userEmail) => dispatch => {
+  bookService.updateUserBook(userBook)
+  .then(()=>{dispatch(operationSuccess()); fetchUserBooks(bookService)(userEmail)(dispatch);})
+  .catch(e=>dispatch(updateItemError(e)));
+};
+
 
 export {
   fetchBooks,
@@ -326,5 +332,6 @@ export {
   fetchBooksByTitle,
   addBook,
   updateBook,
-  fetchUserBooks
+  fetchUserBooks,
+  updateUserBook
 };

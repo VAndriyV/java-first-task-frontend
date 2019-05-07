@@ -59,9 +59,7 @@ class CartPage extends Component {
       cartItems.length === 0
     ) {
       return <h4 className="empty-cart-title">The cart is empty!</h4>;
-    }
-
-    console.log(hasError+" "+errorMsg);
+    }    
 
     return (
       <React.Fragment>

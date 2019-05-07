@@ -3,8 +3,8 @@
 const updateUserBooks =(state,action)=>{
 
     if(state===undefined){
-        return{
-            userEmail:null,
+        return{          
+            userId:null,
             phoneNumber:null,
             books:[],
             error:null,
@@ -14,17 +14,17 @@ const updateUserBooks =(state,action)=>{
 
     switch(action.type){
         case 'FETCH_USERBOOKS_REQUEST':
-        return{
-            userEmail:null,
+        return{           
+            userId:null,
             phoneNumber:null,
             books:[],
             error:null,
             loading:true
         };
 
-        case 'FETCH_USERBOOKS_SUCCESS':
-        return{
-            userEmail:action.payload.user.email,
+        case 'FETCH_USERBOOKS_SUCCESS':       
+        return{           
+            userId:action.payload.user.id,
             phoneNumber:action.payload.user.phoneNumber,
             books:action.payload.books,
             error:null,
@@ -32,8 +32,8 @@ const updateUserBooks =(state,action)=>{
         };
 
         case 'FETCH_USERBOOKS_FAILURE':
-        return{
-            userEmail:state.userBooks.userEmail,
+        return{           
+            userId:state.userBooks.userId,
             phoneNumber:state.userBooks.phoneNumber,
             books:state.userBooks.books,
             error:null,

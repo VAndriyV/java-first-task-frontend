@@ -20,3 +20,9 @@
  {
     border: none;
 }
+.update_userBook-form .form-group label{
+    margin-bottom: 0;
+}
+.update_userBook-form .form-group{
+    margin-bottom: 8px;
+}

@@ -18,6 +18,7 @@ import CartPage from '../pages/CartPage/CartPage';
 import AuthorsEditPage from '../pages/Admin/AuthorsEditPage/AuthorsEditPage';
 import BooksEditPage from '../pages/Admin/BooksEditPage/BooksEditPage';
 import UserBooksEditPage from '../pages/Admin/UserBooksEditPage/UserBooksEditPage';
+import OrderedBooksPage from '../pages/OrderedBooksPage/OrderedBooksPage';
 
 class App extends Component {
 
@@ -45,6 +46,7 @@ class App extends Component {
             <Route path="/admin/authors" exact component={AuthorsEditPage} />
             <Route path="/admin/books" exact component={BooksEditPage} />
             <Route path="/admin/userBooks" exact component={UserBooksEditPage} />
+            <Route path="/orderedBooks" exact component={OrderedBooksPage}/>
             <Route component={HomePage} />
           </Switch>
         </Layout>

@@ -136,7 +136,7 @@ export default class FetchApiService {
   };
 
   getBooksRange = async (limit, offset) => {
-    const path = `booksRange?limit=${limit}&offset=${offset}`;
+    const path = `books?limit=${limit}&offset=${offset}`;
 
     const result = await this.getRequest(path);
 
@@ -253,5 +253,14 @@ export default class FetchApiService {
     const result = await this.getRequest(path);
 
     return result;
+  };
+
+  updateUserBook = async userBook=>{
+    const path = 'updateUserBook';
+
+    const result = await this.putRequest(path,userBook);
+
+    return result;
+
   };
 }

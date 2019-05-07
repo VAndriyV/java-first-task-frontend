@@ -6,8 +6,7 @@ import './BooksPage.css';
 export default class BooksPage extends Component {
 
     render() {
-        const { genre, authorId,location } = this.props;
-        console.log(location);
+        const { genre, authorId,location } = this.props;       
         return (
             <React.Fragment>
                 <Row>

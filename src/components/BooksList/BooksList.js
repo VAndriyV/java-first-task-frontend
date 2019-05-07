@@ -8,19 +8,18 @@ import {
   fetchBooksByGenre,
   fetchBooksByAuthorId
 } from "../../actions";
-import { withBookService } from "../hoc/";
-import { compose } from "../utils/";
+import { withBookService } from "../hoc";
+import { compose } from "../utils";
 import { bindActionCreators } from "redux";
 import { Row } from "react-bootstrap";
-import Spinner from "../Spinner/";
+import Spinner from "../Spinner";
 import InfiniteScroll from "react-infinite-scroller";
 import DottedSpinner from "../DottedSpinner/DottedSpinner";
 import Error from "../Error/Error";
 import "./BooksList.css";
 
 class BooksList extends Component {
-  componentDidMount() {
-    console.log("hereMount");
+  componentDidMount() {    
     const { booksRequested } = this.props;
     booksRequested();
     this.fetchCorrectMethod();

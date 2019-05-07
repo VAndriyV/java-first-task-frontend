@@ -36,8 +36,7 @@ class BooksEditPage extends Component {
 
     updateBook =(e)=>{
         e.preventDefault();
-        let book = extractFormData(e.target);
-        book.id = parseInt(book.id);
+        const book = extractFormData(e.target);        
         this.props.updateBook(book);
         this.setState({
             editMode:false,
@@ -56,7 +55,7 @@ class BooksEditPage extends Component {
         const {operationError,operationErrorType,roleId} = this.props;
 
         if(roleId!==2){
-            return <Redirect to="/" />;
+            return <Redirect to ="/login"/>;
         }
 
         return (<React.Fragment>

@@ -25,7 +25,7 @@ class LoginPage extends Component {
     const { isLoggedIn,message } = this.props;
 
     if (isLoggedIn) {
-      return <Redirect to="/" />;
+      return <Redirect to ="/login"/>;
     }
 
     return (
