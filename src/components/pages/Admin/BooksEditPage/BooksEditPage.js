@@ -52,7 +52,7 @@ class BooksEditPage extends Component {
 
     render() {
         const {editMode,editObject,showForms}=this.state;
-        const {operationError,operationErrorType,roleId} = this.props;
+        const {operationError,roleId} = this.props;
 
         if(roleId!==2){
             return <Redirect to ="/login"/>;

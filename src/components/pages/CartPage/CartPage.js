@@ -6,7 +6,6 @@ import { withBookService } from "../../hoc/";
 import { compose } from "../../utils/";
 import { Col, Button, Alert } from "react-bootstrap";
 import { fetchCart, updateAvailability } from "../../../actions";
-import FetchApiService from "../../../services/FetchApiService";
 import "./CartPage.css";
 import Error from '../../Error/Error';
 

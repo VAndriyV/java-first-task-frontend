@@ -131,7 +131,7 @@ class BooksEditList extends Component {
                   this.fetchCorrectMethod();
                 }}
                 hasMore={hasMore}
-                loader={<DottedSpinner />}
+                loader={<DottedSpinner key={0}/>}
               >
                 <Table responsive className="books-table">
                   <thead>

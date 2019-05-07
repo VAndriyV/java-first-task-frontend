@@ -80,7 +80,7 @@ import { Redirect } from 'react-router';
     }
 
     render(){
-        const { authors, loading, error,operationError,operationErrorType,roleId } = this.props;
+        const { authors, loading, error,operationError,roleId } = this.props;
         const {editMode,editObject}=this.state; 
        
         if(roleId!==2){

@@ -7,7 +7,6 @@ import App from "./components/App/App";
 import * as serviceWorker from "./serviceWorker";
 import store from "./store/store";
 import { BookServiceProvider } from "./components/BookServiceProvider/BookServiceProvider";
-import MockService from "./services/MockService";
 import FetchApiService from "./services/FetchApiService";
 import ErrorBoundry from "./components/error-boundry/error-boundry";
 

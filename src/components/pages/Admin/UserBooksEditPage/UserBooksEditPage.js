@@ -85,11 +85,10 @@ class UserBooksEditPage extends Component {
         }
     }
 
-    mapOrdersData(userEmail, userId, phoneNumber, books) {
+    mapOrdersData(userId, phoneNumber, books) {
         return (<Row className="orders-details">
             <Col>
-                <h5>User id: {userId}</h5>
-                <h5>Email: {userEmail}</h5>
+                <h5>User id: {userId}</h5>              
                 <h5>Phone number: {phoneNumber}</h5>
                 {this.mapOrderedBooksList(books)}
             </Col>
@@ -98,7 +97,7 @@ class UserBooksEditPage extends Component {
 
     render() {
         const { roleId, loading, error, books, userEmail, phoneNumber, userId } = this.props;
-        const { editMode, editObject, showForms } = this.state;
+        const { editMode, editObject } = this.state;
         if (roleId !== 2) {
             return <Redirect to ="/login"/>;
         }
@@ -117,7 +116,7 @@ class UserBooksEditPage extends Component {
                 <Col xs={12}>
                     {loading ? <Spinner /> :
                         error ? <Error errorMsg={error} /> :
-                            this.mapOrdersData(userEmail, userId, phoneNumber, books)}
+                            this.mapOrdersData(userId, phoneNumber, books)}
                 </Col>
             </Row>
         );
@@ -168,8 +167,7 @@ const mapStateToProps = ({ adminOperations, userStatus, userBooks }) => {
         roleId: userStatus.roleId,
         userEmail: userStatus.email,
         phoneNumber: userBooks.phoneNumber,
-        userId: userBooks.userId,
-        loading: userBooks.loading,
+        userId: userBooks.userId,       
         error: userBooks.error,
         books: userBooks.books,
         loading: userBooks.loading

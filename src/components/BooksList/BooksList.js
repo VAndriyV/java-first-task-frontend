@@ -107,11 +107,11 @@ class BooksList extends Component {
             this.fetchCorrectMethod();
           }}
           hasMore={hasMore}
-          loader={<DottedSpinner />}
+          loader={<DottedSpinner key={0}/>}
         >
-          {books.map(book => {
+          {books.map((book,idx) => {
             return (
-              <BookListItem
+              <BookListItem key={idx}
                 book={book}
                 onAddedToCart={() => onAddedToCart(book)}
               />

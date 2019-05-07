@@ -50,16 +50,16 @@ class AuthorsList extends Component {
 
   buildMarkup(data) {
 
-    return Object.keys(data).map(key => {
+    return Object.keys(data).map((key,idx0) => {
       return (
-        <Col xs={12} sm={6} md={4} lg={3} className='list-item'>
+        <Col key = {idx0} xs={12} sm={6} md={4} lg={3} className='list-item'>
           <h5 className='list-header'>{key}</h5>
           <ul className='authors-list'>
             {
 
-              data[key].map(val => {
+              data[key].map((val,idx1) => {
                 return (
-                  <li><LinkContainer exact to={"/books/byauthor/" + val.id}>{val.firstName + " " + val.lastName}</LinkContainer></li>
+                 <LinkContainer key = {idx1} exact to={"/books/byauthor/" + val.id}><li>{val.firstName + " " + val.lastName}</li></LinkContainer>
                 )
               })
             }
