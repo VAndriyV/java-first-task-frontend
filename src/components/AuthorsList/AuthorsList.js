@@ -4,10 +4,10 @@ import { withBookService } from '../hoc/';
 import { compose } from '../utils/';
 import { fetchAuthors } from '../../actions/';
 import { bindActionCreators } from 'redux';
+import { LinkContainer} from "react-router-bootstrap";
 import Spinner from '../Spinner/';
 import './AuthorsList.css';
 import { Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import Error from "../Error/Error";
 
 class AuthorsList extends Component {
@@ -59,7 +59,7 @@ class AuthorsList extends Component {
 
               data[key].map(val => {
                 return (
-                  <li><Link to={"/books/byauthor/" + val.id}>{val.firstName + " " + val.lastName}</Link></li>
+                  <li><LinkContainer exact to={"/books/byauthor/" + val.id}>{val.firstName + " " + val.lastName}</LinkContainer></li>
                 )
               })
             }

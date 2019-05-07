@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import { FaUser, FaUserEdit, FaBook, FaShoppingCart, FaSignOutAlt } from "react-icons/fa";
-import { LinkContainer } from "react-router-bootstrap";
+import { LinkContainer} from "react-router-bootstrap";
 import "./NavMenu.css";
 import { connect } from 'react-redux';
 import { logout } from '../../actions';
@@ -14,7 +14,8 @@ class NavMenu extends Component {
     if (route === "/") {
       return pathname === "/";
     }
-    return pathname.includes(route);
+   
+    return pathname ===route;
   };
 
   render() {
@@ -79,15 +80,12 @@ class NavMenu extends Component {
                 <Nav.Link active={false}>Authors</Nav.Link>
               </LinkContainer>
               <NavDropdown title="Genres" id="basic-nav-dropdown">
-                <NavDropdown.Item href="action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="action/3.2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="action/3.3">Something</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="action/3.4">
-                  Separated link
-                </NavDropdown.Item>
+                <LinkContainer isActive={this.checkActive("/books/bygenre/thriller")} exact to="/books/bygenre/thriller"><NavDropdown.Item >Thriller</NavDropdown.Item></LinkContainer>
+                <LinkContainer isActive={this.checkActive("/books/bygenre/novel")} exact to={"/books/bygenre/novel"}><NavDropdown.Item >Novel</NavDropdown.Item></LinkContainer>
+                <LinkContainer isActive={this.checkActive("/books/bygenre/adventure")} exact to={"/books/bygenre/adventure"}><NavDropdown.Item >Adventure</NavDropdown.Item></LinkContainer>
+                <LinkContainer isActive={this.checkActive("/books/bygenre/sci-fi")} exact to={"/books/bygenre/sci-fi"}><NavDropdown.Item >Sci-Fi</NavDropdown.Item></LinkContainer>
+                <LinkContainer isActive={this.checkActive("/books/bygenre/detective")} exact to={"/books/bygenre/detective"}><NavDropdown.Item >Detective</NavDropdown.Item></LinkContainer>
+                <LinkContainer isActive={this.checkActive("/books/bygenre/memoir")} exact to={"/books/bygenre/memoir"}><NavDropdown.Item >Memoir</NavDropdown.Item></LinkContainer>
               </NavDropdown>
 
               <LinkContainer

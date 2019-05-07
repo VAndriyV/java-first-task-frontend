@@ -6,12 +6,25 @@ import './BooksPage.css';
 export default class BooksPage extends Component {
 
     render() {
-        const { genre, authorId,location } = this.props;       
+        const { genre, authorId,location } = this.props; 
+        
+        let header = null;
+    
+        if(genre){
+            header = "Books by " + genre;
+        }
+        else if(authorId){
+            header = "Authors book";
+        }
+        else{
+            header = "All books";
+        }
+        
         return (
             <React.Fragment>
                 <Row>
                     <Col xs={12} className="all-books-title">
-                        <h4>{genre ? "Books by " + genre + " genre" : "All books"} </h4>
+                        <h4>{header}</h4>
                         <p>Click <FiPlusSquare size={24} /> to add book to cart</p>
                     </Col>
                 </Row>
