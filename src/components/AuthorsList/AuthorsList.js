@@ -58,8 +58,8 @@ class AuthorsList extends Component {
             {
 
               data[key].map((val,idx1) => {
-                return (
-                 <LinkContainer key = {idx1} exact to={"/books/byauthor/" + val.id}><li>{val.firstName + " " + val.lastName}</li></LinkContainer>
+                return ( 
+                 <LinkContainer key = {idx1} exact to={"/books/byauthor/" + val.id}><li><a>{val.firstName + " " + val.lastName}</a></li></LinkContainer>
                 )
               })
             }

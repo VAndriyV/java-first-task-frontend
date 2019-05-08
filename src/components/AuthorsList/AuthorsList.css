@@ -8,6 +8,7 @@ ul li a:hover{
     color: inherit;
     font-weight: 600;
     text-decoration: none;
+    cursor: pointer;
 }
 .list-item{
     margin-top: 20px;

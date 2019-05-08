@@ -11,7 +11,7 @@ export default class BooksPage extends Component {
         let header = null;
     
         if(genre){
-            header = "Books by " + genre;
+            header = "Books by " + genre + " genre";
         }
         else if(authorId){
             header = "Authors book";
