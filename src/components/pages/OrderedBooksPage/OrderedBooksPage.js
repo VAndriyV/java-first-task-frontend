@@ -28,11 +28,11 @@ class OrderedBooksPage extends Component{
                     </tr>
                 </thead>
                 <tbody>{arr.map(item => {
-                    return (<tr key={item[0].id}>
+                    return (<tr key={item.book.id}>
                         
-                        <td>{item[0].title}</td>
-                        <td>{item[0].year}</td>
-                        <td>{item[1]}</td>                        
+                        <td>{item.book.title}</td>
+                        <td>{item.book.year}</td>
+                        <td>{item.count}</td>                        
                     </tr>)
                 })}</tbody>
             </Table>;

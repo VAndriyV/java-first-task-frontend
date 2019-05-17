@@ -148,14 +148,13 @@ const fetchBooksByAuthorId = bookService => (
 
 const login = bookService => userLoginData => dispatch => {
   bookService
-    .login(userLoginData)
-    .then(token => {
-      localStorage.setItem("token",token);
-      const decoded = jwt_decode(token);
-      const userData = JSON.parse(decoded.sub);     
-      dispatch(loginSuccess(userData));     
-    })
-    .catch(err => dispatch(loginFailure(err)));
+  .login(userLoginData)
+    .then(data => {          
+        localStorage.setItem("token", data.access_token);          
+        console.log(data);
+    dispatch(loginSuccess(data.userInfo));     
+  })
+  .catch(err => dispatch(loginFailure(err)));
 };
 
 const registration = bookService => userRegistrationData => dispatch => {

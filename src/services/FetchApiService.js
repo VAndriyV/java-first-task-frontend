@@ -132,7 +132,7 @@ export default class FetchApiService {
       throw errorMsg;
     }
 
-    return res.headers.get("authorization");
+    return await res.json();
   };
 
   getBooksRange = async (limit, offset) => {
